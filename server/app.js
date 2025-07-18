@@ -1,4 +1,5 @@
- // Start :)
+require('dotenv').config()
+// Start :)
 
 const express = require("express");
 const multer = require("multer");
@@ -12,15 +13,11 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-
+    
 // Configure Database
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "mr_chicken",
-  password: "mr_chicken",
-  database: "mr_chichen",
-});
+const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}:3306/${process.env.MYSQLDATABASE}`
+const connection = mysql.createConnection(urlDB);
 
 //Connect Database
 
