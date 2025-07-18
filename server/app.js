@@ -18,6 +18,7 @@ app.use(cors());
 
 // const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}:3306/${process.env.MYSQLDATABASE}`
 const connection = mysql.createConnection({
+  port: process.env.MYSQLPORT,
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
