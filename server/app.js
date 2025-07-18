@@ -310,4 +310,4 @@ app.delete("/remove_dish", (req, res) => {
 });
 
 
-app.listen(port, () => console.log(`listening on port ${port}`));
+app.listen(process.env.MYSQLPORT, () => console.log(`listening on port ${process.env.MYSQLPORT}`));
