@@ -310,4 +310,4 @@ app.delete("/remove_dish", (req, res) => {
 });
 
 
-app.listen(3011, () => console.log("listening on port http://localhost:3011"));
+app.listen(port, () => console.log(`listening on port ${port}`));
