@@ -16,8 +16,16 @@ app.use(cors());
     
 // Configure Database
 
-const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}:3306/${process.env.MYSQLDATABASE}`
-const connection = mysql.createConnection(urlDB);
+// const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}:3306/${process.env.MYSQLDATABASE}`
+const connection = mysql.createConnection({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  ssl: {
+        rejectUnauthorized: true  
+      },
+});
 
 //Connect Database
 
@@ -87,6 +95,18 @@ connection.query(createOrderTable, (err, results, fields) => {
             }
             console.log('Table "Orders" created successfully or already exists.');
         });
+
+// MYSQLUSER root
+
+// MYSQLPORT 3306
+
+// MYSQLPASSWORD  skiLULXbWCkhOjzPzoFNUAKjBBeAlAyC
+
+// MYSQLHOST  mysql.railway.internal
+
+// MYSQLDATABASE  railway
+
+
 
 
 // Multer Configuration
