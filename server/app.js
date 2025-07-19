@@ -10,13 +10,13 @@ const app = express();
 // Middlewares
 
 app.use(express.json());
-// app.use(cors());
-const corsOptions = {
-    origin: 'https://mrchickenet.netlify.app',  
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-     credentials: true,  
-    };
- app.use(cors(corsOptions));  
+app.use(cors());
+// const corsOptions = {
+//     origin: ['https://mrchickenet.netlify.app', 'http://localhost:3001'],  
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//      credentials: true,  
+//     };
+//  app.use(cors(corsOptions));  
 
 
 // Configure Database
@@ -106,6 +106,8 @@ app.use('/uploads', express.static(uploadDir));
   //Add new feedback to database
  
 app.post('/add-new-feed', async (req, res) => {
+    console.log(req.body);
+    
     try {
         const { feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date } = req.body;
 
@@ -194,7 +196,7 @@ app.get('/select_dish_normal', async (req, res) => {
     }
 });
 
- here // Retrive Feedbacks from database
+ // Retrive Feedbacks from database
  
 app.get('/select_feed', async (req, res) => {
     try {
