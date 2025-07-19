@@ -10,13 +10,13 @@ const app = express();
 // Middlewares
 
 app.use(express.json());
-app.use(cors());
-// const corsOptions = {
-//     origin: ['https://mrchickenet.netlify.app', 'http://localhost:3001'],  
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//      credentials: true,  
-//     };
-//  app.use(cors(corsOptions));  
+// app.use(cors());
+const corsOptions = {
+    origin: 'https://mrchickenet.netlify.app',  
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', 
+        credentials: true,  
+    };
+app.use(cors(corsOptions)); 
 
 
 // Configure Database
