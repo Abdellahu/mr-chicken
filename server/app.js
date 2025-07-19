@@ -10,13 +10,21 @@ const { v4: uuidv4 } = require('uuid');
 const app = express();
 
 // Middlewares
-
 app.use(express.json());
-app.use(cors());
-    
+
+
+// CORS configuration
+ 
+const corsOptions = {
+    origin: 'https://mrchickenet.netlify.app',  
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+     credentials: true,  
+    };
+ app.use(cors(corsOptions)); 
+ 
+ 
 // Configure Database
 
-// const urlDB = `mysql://${process.env.MYSQLUSER}:${process.env.MYSQLPASSWORD}@${process.env.MYSQLHOST}:${process.env.MYSQLPORT}:3306/${process.env.MYSQLDATABASE}`
 const connection = mysql.createConnection({
   port: process.env.MYSQLPORT,
   host: process.env.MYSQLHOST,
@@ -24,8 +32,8 @@ const connection = mysql.createConnection({
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
   ssl: {
-        rejectUnauthorized: true  
-      },
+    rejectUnauthorized: true  
+  },
 });
 
 //Connect Database
@@ -39,63 +47,83 @@ connection.connect((err) => {
 });
 
 
+app.listen(process.env.MYSQLPORT, () => console.log(`listening on port ${process.env.MYSQLPORT}`));
+
+// Test the database connection
+async function testConnection() {
+  try {
+    const [rows] = await connection.query('SELECT 1 + 1 AS solution');
+    console.log('Database connection test:', rows[0].solution); // Should print 2
+  } catch (error) {
+    console.error('Database connection error:', error);
+  }
+}
+
+testConnection();
+
+// Global Error Handling
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  process.exit(1);
+});
+
 //Create 3 Tables
 
-const createDishTable = `
-  CREATE TABLE IF NOT EXISTS Dishes (
-    dish_id INT AUTO_INCREMENT PRIMARY KEY,
-    dish_name VARCHAR(50) NOT NULL,
-    dish_type VARCHAR(50) NOT NULL,
-    dish_price VARCHAR(20) NOT NULL,
-    dish_description VARCHAR(255) NOT NULL,
-    dish_image_path VARCHAR(70) NOT NULL
-  );
-`;
-const createFeedbackTable = `
-  CREATE TABLE IF NOT EXISTS Feedbacks (
-    feed_id INT AUTO_INCREMENT PRIMARY KEY,
-    feed_user_name VARCHAR(50) NOT NULL,
-    feed_user_email VARCHAR(50) NOT NULL,
-    feed_text VARCHAR(255) NOT NULL,
-    feed_rating VARCHAR(10) NOT NULL,
-    feed_time VARCHAR(50) NOT NULL,
-    feed_date VARCHAR(50) NOT NULL
-  );
-`;
-const createOrderTable = `
-  CREATE TABLE IF NOT EXISTS Orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    dish_id VARCHAR(250) NOT NULL,
-    dish_time VARCHAR(250) NOT NULL,
-    dish_user_name VARCHAR(50) NOT NULL,
-    dish_user_email VARCHAR(150) NOT NULL,
-    dish_total_price INT NOT NULL,
-    dish_message VARCHAR(255) NOT NULL
-  );
-`;
+// const createDishTable = `
+//   CREATE TABLE IF NOT EXISTS Dishes (
+//     dish_id INT AUTO_INCREMENT PRIMARY KEY,
+//     dish_name VARCHAR(50) NOT NULL,
+//     dish_type VARCHAR(50) NOT NULL,
+//     dish_price VARCHAR(20) NOT NULL,
+//     dish_description VARCHAR(255) NOT NULL,
+//     dish_image_path VARCHAR(70) NOT NULL
+//   );
+// `;
+// const createFeedbackTable = `
+//   CREATE TABLE IF NOT EXISTS Feedbacks (
+//     feed_id INT AUTO_INCREMENT PRIMARY KEY,
+//     feed_user_name VARCHAR(50) NOT NULL,
+//     feed_user_email VARCHAR(50) NOT NULL,
+//     feed_text VARCHAR(255) NOT NULL,
+//     feed_rating VARCHAR(10) NOT NULL,
+//     feed_time VARCHAR(50) NOT NULL,
+//     feed_date VARCHAR(50) NOT NULL
+//   );
+// `;
+// const createOrderTable = `
+//   CREATE TABLE IF NOT EXISTS Orders (
+//     order_id INT AUTO_INCREMENT PRIMARY KEY,
+//     dish_id VARCHAR(250) NOT NULL,
+//     dish_time VARCHAR(250) NOT NULL,
+//     dish_user_name VARCHAR(50) NOT NULL,
+//     dish_user_email VARCHAR(150) NOT NULL,
+//     dish_total_price INT NOT NULL,
+//     dish_message VARCHAR(255) NOT NULL
+//   );
+// `;
  
 // Connect Tables (Query In Database)
-connection.query(createDishTable, (err, results, fields) => {
-            if (err) {
-            console.error("Error creating dishes table: " + err.message);
-            }
-            console.log('Table "Dishes" created successfully or already exists.');
-            console.table(results)
-        });
+// connection.query(createDishTable, (err, results, fields) => {
+//             if (err) {
+//             console.error("Error creating dishes table: " + err.message);
+//             }
+//             console.log('Table "Dishes" created successfully or already exists.');
+//             console.table(results)
+//         });
  
-connection.query(createFeedbackTable, (err, results, fields) => {
-            if (err) {
-            console.error("Error creating feedback table: " + err.message);
-            }
-            console.log('Table "Feedbacks" created successfully or already exists.');
-        });
+// connection.query(createFeedbackTable, (err, results, fields) => {
+//             if (err) {
+//             console.error("Error creating feedback table: " + err.message);
+//             }
+//             console.log('Table "Feedbacks" created successfully or already exists.');
+//         });
 
-connection.query(createOrderTable, (err, results, fields) => {
-            if (err) {
-            console.error("Error creating order table: " + err.message);
-            }
-            console.log('Table "Orders" created successfully or already exists.');
-        });
+// connection.query(createOrderTable, (err, results, fields) => {
+//             if (err) {
+//             console.error("Error creating order table: " + err.message);
+//             }
+//             console.log('Table "Orders" created successfully or already exists.');
+//         });
 
 // MYSQLUSER root
 
@@ -310,4 +338,3 @@ app.delete("/remove_dish", (req, res) => {
 });
 
 
-app.listen(process.env.MYSQLPORT, () => console.log(`listening on port ${process.env.MYSQLPORT}`));
