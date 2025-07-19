@@ -17,6 +17,8 @@ const corsOptions = {
      credentials: true,  
     };
  app.use(cors(corsOptions));  
+
+
 // Configure Database
 
 const pool = mysql.createPool({
@@ -264,6 +266,7 @@ app.delete("/remove_dish", async (req, res) => {
     }
 });
 
+// Listen to port
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 
