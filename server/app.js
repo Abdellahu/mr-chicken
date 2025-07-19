@@ -19,7 +19,7 @@ const corsOptions = {
  app.use(cors(corsOptions));  
 // Configure Database
 
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
   port: process.env.MYSQLPORT,
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
@@ -30,20 +30,13 @@ const connection = mysql.createConnection({
   },
 });
 
-//Connect Database
+//Database already connected
 
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL: " + err.stack);
-    return; 
-  }
-  console.log("Connected to MySQL as id " + connection.threadId);
-});
+const PORT = process.env.MYSQLPORT || 3000;
 
 
-app.listen(process.env.MYSQLPORT, () => console.log(`listening on port ${process.env.MYSQLPORT}`));
- 
 // Multer Configuration
+ 
 const storage = multer.diskStorage({   
   destination: function (req, file, cb) {
     const uploadDir = path.join(__dirname, 'uploads');
@@ -55,191 +48,222 @@ const storage = multer.diskStorage({
   }
 });
 
-// Multer Instanse
 
-const upload = multer({ storage: storage });  
+// Multer Instance
+const upload = multer({ storage: storage });
 
+// Upload directry
 const fs = require('fs');   
 const uploadDir = path.join(__dirname, 'uploads');
 
 if (!fs.existsSync(uploadDir)){
     fs.mkdirSync(uploadDir, { recursive: true });
 }
+// Serve static files from the "uploads" directory
+app.use('/uploads', express.static(uploadDir));
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));  
-
-
+ 
 
 //Routing
 
 // Add new dishes to database
+  
+ app.post('/add-new-dish', upload.single('dish_image'), async (req, res) => {
+    try {
+        const { dish_name, dish_type, dish_price, dish_description } = req.body;
 
-app.post('/add-new-dish', upload.single('dish_image'), async (req, res) => {
-   
-    let { dish_name, dish_type, dish_price, dish_description } = req.body
+        // Validate input (very important!)
+        if (!dish_name || !dish_type || !dish_price || !dish_description) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
 
-    // Make sure a file was uploaded
-    if (!req.file) {
-      return res.status(400).send('No file uploaded.');
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded.' });
+        }
+
+        // Construct the image path
+        const dish_image_path = `/uploads/${req.file.filename}`;
+
+        // SQL query with placeholders (prevents SQL injection)
+        const addToDishes = `
+            INSERT INTO Dishes (dish_name, dish_type, dish_price, dish_description, dish_image_path)
+            VALUES (?, ?, ?, ?, ?)
+        `;
+
+        // Execute the query using the pool
+        const [results] = await pool.query(addToDishes, [dish_name, dish_type, dish_price, dish_description, dish_image_path]);
+
+        console.log('Dish data inserted successfully');
+        res.status(201).json({ message: 'Dish data inserted successfully!', insertId: results.insertId }); // Include the inserted ID
+    } catch (error) {
+        console.error('Error inserting dish data:', error);
+        res.status(500).json({ error: 'Error inserting dish data' });
     }
-
-    let dish_image_path = `/uploads/${req.file.filename}`;  
-     
-    let addToDishes = `INSERT INTO Dishes (dish_name, dish_type, dish_price, dish_description, dish_image_path) VALUES (?, ?, ?, ?, ?)`
-
-
-    connection.query(addToDishes, [dish_name, dish_type, dish_price, dish_description, dish_image_path], (err, results) =>{
-        if (err) {
-            console.error("Error inserting dish data: " + err.message);
-            return res.status(500).send("Error inserting dish data");
-         }
-            
-        console.log("Dish data inserted"); 
-           
-    res.json('Dish data inserted successfully!');
-    console.log("Dish data inserted successfully!");
-})
-
-  })
+});
 
   //Add new feedback to database
+ 
+app.post('/add-new-feed', async (req, res) => {
+    try {
+        const { feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date } = req.body;
 
-app.post('/add-new-feed',   async (req, res) => {
+        // Validate input (very important!)
+        if (!feed_user_name || !feed_user_email || !feed_text || !feed_rating || !feed_time || !feed_date) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
 
-  
-  let { feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date } = req.body
-  
-    let addToFeedbacks = `INSERT INTO Feedbacks (feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date) VALUES (?, ?, ?, ?, ?, ?)`
+        // SQL query with placeholders (prevents SQL injection)
+        const addToFeedbacks = `
+            INSERT INTO Feedbacks (feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
 
-    connection.query(addToFeedbacks, [feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date], (err, results) =>{
-        if (err) {
-            console.error("Error inserting feedback data: " + err.message);
-            return res.status(500).send("Error inserting feedback data");
-         }
-            
-        console.log("Feedback data inserted"); 
-           
-    res.json('Feedback data inserted successfully!');
-    console.log("Feedback data inserted successfully!");
-})
+        // Execute the query using the pool
+        const [results] = await pool.query(addToFeedbacks, [feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date]);
 
-  })
+        console.log('Feedback data inserted successfully');
+        res.status(201).json({ message: 'Feedback data inserted successfully!', insertId: results.insertId }); // Include the inserted ID
+    } catch (error) {
+        console.error('Error inserting feedback data:', error);
+        res.status(500).json({ error: 'Error inserting feedback data' });
+    }
+});
 
   // Add new order to database
 
-app.post('/add-new-order',  upload.single('dish_image'), async (req, res) => {
-    
-    let { dish_id, dish_time, dish_user_name, dish_user_email, dish_total_price, dish_message } = req.body
- 
-    let addToOrders = `INSERT INTO Orders (dish_id, dish_time, dish_user_name, dish_user_email, dish_total_price, dish_message) VALUES (?, ?, ?, ?, ?, ?)`
+app.post('/add-new-order', async (req, res) => {
+    try {
+        const { dish_id, dish_time, dish_user_name, dish_user_email, dish_total_price, dish_message } = req.body;
 
+        // Validate input (very important!)
+        if (!dish_id || !dish_time || !dish_user_name || !dish_user_email || !dish_total_price || !dish_message) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
 
-    connection.query(addToOrders, [dish_id, dish_time, dish_user_name, dish_user_email, dish_total_price, dish_message], (err, results) =>{
-        if (err) {
-            console.error("Error inserting dish data: " + err.message);
-            return res.status(500).send("Error inserting dish data");
-         }
-            
-        console.log("Dish data inserted"); 
-           
-    res.json('Dish data inserted successfully!');
-    console.log("Dish data inserted successfully!");
- })
+        // SQL query with placeholders (prevents SQL injection)
+        const addToOrders = `
+            INSERT INTO Orders (dish_id, dish_time, dish_user_name, dish_user_email, dish_total_price, dish_message)
+            VALUES (?, ?, ?, ?, ?, ?)
+        `;
 
-})
+        // Execute the query using the pool
+        const [results] = await pool.query(addToOrders, [dish_id, dish_time, dish_user_name, dish_user_email, dish_total_price, dish_message]);
+
+        console.log('Order data inserted successfully');
+        res.status(201).json({ message: 'Order data inserted successfully!', insertId: results.insertId }); // Include the inserted ID
+    } catch (error) {
+        console.error('Error inserting order data:', error);
+        res.status(500).json({ error: 'Error inserting order data' });
+    }
+});
 
   // Retrive Dishes data from Database by Dish Type 
+ 
+app.get('/select_dish', async (req, res) => {
+    try {
+        const [results] = await pool.query("SELECT * FROM Dishes ORDER BY dish_type");
 
-app.get('/select_dish', (req, res) =>{
-
-    let selectFromDishTable = "SELECT * FROM Dishes ORDER BY dish_type "
-    
-    connection.query(selectFromDishTable, (err, results, feilds) => {
-            if(err) console.log(err); 
-            console.table(results) 
-            
-            const  groupedDishes = {}
-            for (const result of results ) {
-                const dishType = result.dish_type;
-                if (!groupedDishes[dishType]) {
-                    groupedDishes[dishType] = [];
-                }
-                groupedDishes[dishType].push(result); 
+        // Group the dishes by dish_type
+        const groupedDishes = {};
+        for (const result of results) {
+            const dishType = result.dish_type;
+            if (!groupedDishes[dishType]) {
+                groupedDishes[dishType] = [];
             }
-            res.send(groupedDishes) 
-            return groupedDishes;
+            groupedDishes[dishType].push(result);
         }
-    )      
-})
+
+        res.json(groupedDishes);
+    } catch (error) {
+        console.error("Error selecting dishes:", error);
+        res.status(500).json({ error: 'Error selecting dishes' });
+    }
+});
 
   // Retrive Dishes data from Database by Dish Id
 
-app.get('/select_dish_normal', (req, res) =>{
+app.get('/select_dish_normal', async (req, res) => {
+    try {
+        const [results] = await pool.query("SELECT * FROM Dishes ORDER BY dish_id");
+        res.json(results);
+    } catch (error) {
+        console.error("Error selecting dishes:", error);
+        res.status(500).json({ error: 'Error selecting dishes' });
+    }
+});
 
-    let selectDishTable = "SELECT * FROM Dishes ORDER BY dish_id "
-    
-    connection.query(selectDishTable, (err, results, feilds) => {
-            if(err) console.log(err); 
-            res.send(results) 
-        })      
-})
-
-  // Retrive Feedbacks from database
-
-app.get('/select_feed', (req, res) =>{
-
-    let selectFromFeedTable = "SELECT * FROM Feedbacks ORDER BY feed_id DESC"
-    
-    connection.query(selectFromFeedTable, (err, results, feilds) => {
-            if(err) console.log(err); 
-            res.send(results) 
-        }
-    )      
-})
+ here // Retrive Feedbacks from database
+ 
+app.get('/select_feed', async (req, res) => {
+    try {
+        const [results] = await pool.query("SELECT * FROM Feedbacks ORDER BY feed_id DESC");
+        res.json(results);
+    } catch (error) {
+        console.error("Error selecting feedbacks:", error);
+        res.status(500).json({ error: 'Error selecting feedbacks' });
+    }
+});
 
   // Retrive Orders from Database
 
-app.get('/select_order', (req, res) =>{
-
-    let selectFromFeedTable = "SELECT * FROM Orders ORDER BY order_id DESC"
-    
-    connection.query(selectFromFeedTable, (err, results, feilds) => {
-            if(err) console.log(err); 
-            res.send(results) 
-        }
-    )      
-})
-
+app.get('/select_order', async (req, res) => {
+    try {
+        const [results] = await pool.query("SELECT * FROM Orders ORDER BY order_id DESC");
+        res.json(results);
+    } catch (error) {
+        console.error("Error selecting orders:", error);
+        res.status(500).json({ error: 'Error selecting orders' });
+    }
+});
   // Update price of dish in database
 
-app.put('/update_price', (req, res) => {
-  console.log(req.body);
-  
- 	const { id_edit, price_edit } = req.body;
+app.put('/update_price', async (req, res) => {
+    try {
+        const { id_edit, price_edit } = req.body;
 
-	let updatePrice = `UPDATE Dishes SET dish_price = ? WHERE dish_id = ?`;
+        // Validate Input (Important!)
+        if (!id_edit || !price_edit) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
 
-	connection.query(updatePrice, [price_edit, id_edit], (err, results, fields) => {
-		if (err) console.log(err);
-         
-		console.log("Price record updated");
-     res.json({message: "Price updated successfully!"});
-		 
-	});
+        const updatePrice = `
+            UPDATE Dishes SET dish_price = ? WHERE dish_id = ?
+        `;
 
+        const [results] = await pool.query(updatePrice, [price_edit, id_edit]);
+
+        console.log("Price record updated");
+        res.json({ message: "Price updated successfully!" });
+    } catch (error) {
+        console.error("Error updating price:", error);
+        res.status(500).json({ error: "Error updating price" });
+    }
 });
 
-  // Remove dish from database
+ // Remove dish from database
+app.delete("/remove_dish", async (req, res) => {
+    try {
+        const { id_delete } = req.body;
 
-app.delete("/remove_dish", (req, res) => {
-    const { id_delete } = req.body;  
-	
-	let removeDish = `DELETE FROM Dishes WHERE dish_id = ?`;
- 
-	connection.query(removeDish, [id_delete], (err, results) => {
-		if (err) console.log(err);    
-		    console.log( "Dish Deleted");
-	});
+        // Validate Input (Important!)
+        if (!id_delete) {
+            return res.status(400).json({ error: 'Missing dish ID' });
+        }
+
+        const removeDish = `
+            DELETE FROM Dishes WHERE dish_id = ?
+        `;
+
+        const [results] = await pool.query(removeDish, [id_delete]);
+
+        console.log("Dish Deleted");
+        res.json({ message: "Dish deleted successfully!" });
+    } catch (error) {
+        console.error("Error deleting dish:", error);
+        res.status(500).json({ error: "Error deleting dish" });
+    }
 });
+
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
 
 
