@@ -4,7 +4,7 @@ require('dotenv').config()
 const express = require("express");
 const multer = require("multer");
 const cors = require('cors');
-const mysql = require("mysql2");
+const mysql = require("mysql2/promise");
 const path = require("path");
 const { v4: uuidv4 } = require('uuid');
 const app = express();
