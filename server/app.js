@@ -130,7 +130,7 @@ app.post('/add-new-feed', async (req, res) => {
 
   // Add new order to database
 
-app.post('/add-new-order', async (req, res) => {
+app.post('/add-new-order', upload.single('dish_image'), async (req, res) => {
     console.log(req.body);
     
     try {
