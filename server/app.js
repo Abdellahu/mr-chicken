@@ -22,7 +22,6 @@ app.use(cors(corsOptions));
 // Configure Database
 
 const pool = mysql.createPool({
-  port: process.env.MYSQLPORT,
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
@@ -33,8 +32,6 @@ const pool = mysql.createPool({
 });
 
 //Database already connected
-
-const PORT = process.env.MYSQLPORT || 3000;
 
 
 // Multer Configuration
@@ -202,6 +199,8 @@ app.get('/select_feed', async (req, res) => {
     try {
         const [results] = await pool.query("SELECT * FROM Feedbacks ORDER BY feed_id DESC");
         res.json(results);
+        console.log(results);
+        
     } catch (error) {
         console.error("Error selecting feedbacks:", error);
         res.status(500).json({ error: 'Error selecting feedbacks' });
@@ -268,7 +267,11 @@ app.delete("/remove_dish", async (req, res) => {
     }
 });
 
+
+ 
 // Listen to port
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+const PORT = process.env.MYSQLPORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => console.log(`Server listening on port ${PORT}`));
 
 
