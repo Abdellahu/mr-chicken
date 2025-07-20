@@ -29,8 +29,9 @@ const pool = mysql.createPool({
 });
 
 //Database already connected
+// Mr. Chicken never disappoints! The feed chicken was crispy, juicy and full of flavor. The staff were super friendly and made the whole dining experiance enjoyable. Easily one of my favorite spots in Addis!
 
-
+//Sun Jul 20 2025 08:48:42 GMT+0300
 // Multer Configuration
  
 const storage = multer.diskStorage({   
@@ -109,7 +110,7 @@ app.post('/add-new-feed', async (req, res) => {
         if (!feed_user_name || !feed_user_email || !feed_text || !feed_rating || !feed_time || !feed_date) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
-
+     
         // SQL query with placeholders (prevents SQL injection)
         const addToFeedbacks = `
             INSERT INTO Feedbacks (feed_user_name, feed_user_email, feed_text, feed_rating, feed_time, feed_date)
@@ -261,6 +262,30 @@ app.delete("/remove_dish", async (req, res) => {
     } catch (error) {
         console.error("Error deleting dish:", error);
         res.status(500).json({ error: "Error deleting dish" });
+    }
+});
+
+// Remove feedback
+app.delete("/remove_feed", async (req, res) => {
+    try {
+        const { id_delete } = req.body;
+
+        // Validate Input (Important!)
+        if (!id_delete) {
+            return res.status(400).json({ error: 'Missing feed ID' });
+        }
+
+        const removeFeed = `
+            DELETE FROM Feedbacks WHERE feed_id = ?
+        `;
+
+        const [results] = await pool.query(removeFeed, [id_delete]);
+
+        console.log("Feedback Deleted");
+        res.json({ message: "Feedback deleted successfully!" });
+    } catch (error) {
+        console.error("Error deleting Feedback:", error);
+        res.status(500).json({ error: "Error Feedback dish" });
     }
 });
 
