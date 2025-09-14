@@ -1,0 +1,267 @@
+.about-page {
+  padding: 150px 5px 50px;
+  background-color: #fff7ff;
+}
+.toDimAbout {
+  background-color: #3a3a3a !important;
+  color: #ffffff;
+  .happy {
+    box-shadow: 1px 3px 10px #2b2b2b;
+  }
+  .innerWrapper {
+    background-color: #292828 !important;
+  }
+  .caution {
+    background-color: #464646;
+  }
+  .ab-foot {
+    box-shadow: 1px 2px 10px #272727;
+    background-color: #302e2e;
+  }
+  .ab-foot:hover {
+    box-shadow: 1px 2px 10px #272727;
+  }
+  .marginerow div {
+    background-color: #3a3a3a !important;
+  }
+  .mr-chick-text {
+    color: #fff;
+  }
+  .thuf-part {
+    background-color: #302f2f;
+  }
+  .for-about,
+  .drives {
+    background-color: #3d3d3d;
+    border-color: #ffc7c7;
+  }
+}
+
+.about-page p {
+  margin-bottom: 0px;
+}
+.text-onPhoto {
+  background-image: url("./../Images/image\ \(3\).jpeg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  border-radius: 15px 15px 0px 0px;
+}
+.for-about {
+  width: 300px;
+  border-radius: 15px;
+  font-weight: 500;
+  background-color: #ffe8e8;
+  border-color: #f3c5c5;
+}
+.magic {
+  border: 1px solid #ccc9c9;
+  background-color: #fff;
+  border-radius: 10px;
+  width: 250px;
+  font-weight: 500;
+  padding-left: 10px;
+  color: var(--primary-color);
+}
+.magiK {
+  font-size: 20px;
+  font-weight: 500;
+  padding-left: 10px;
+  color: rgb(255, 255, 255);
+}
+
+.text-onPhoto {
+  padding-top: 20rem;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+.taste-about {
+  font-size: 45px;
+}
+.happy {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 1px 3px 10px #e9e8e8;
+  border-radius: 15px;
+}
+.for-love {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  background-color: inherit;
+}
+.thuf-part {
+  background-color: #fff;
+  border-radius: 0px 15px 15px 0px;
+}
+.inlines {
+  display: inline-block;
+  padding-bottom: 0px;
+}
+.karemela {
+  justify-content: space-between;
+  text-align: center;
+  margin-top: 20px;
+}
+.small-lists {
+  width: 170px;
+  font-size: 14px;
+}
+.for-space-ab {
+  display: inline-block;
+  padding: 10px;
+}
+
+.thuf-part {
+  padding: 15px 40px;
+}
+.lawd {
+  margin: 20px 0px 0px !important;
+}
+.kens {
+  font-size: 16px;
+}
+.dotts {
+  width: 340px;
+}
+.family {
+  margin-top: 200px;
+}
+.test-fam {
+  font-size: 50px;
+}
+.new-adis {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: inherit;
+}
+.main-txt {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  font-size: 35px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+.ahunm-grey {
+  font-size: 20px;
+}
+.noon {
+  font-size: 29px;
+}
+
+.really {
+  border: none;
+  box-shadow: none;
+}
+.really:hover {
+  border: none;
+  box-shadow: none;
+}
+
+.about-flex {
+  margin-top: 60px !important;
+}
+.innerWrapper {
+  border-radius: 15px;
+  padding: 10px;
+  background-color: #fff;
+}
+.caution {
+  text-align: center;
+  margin: 50px auto;
+  display: block;
+  width: auto;
+  max-width: fit-content;
+  border: 1px solid #dfbaba;
+  background-color: #f8e7e7;
+}
+.boold {
+  font-weight: 600;
+}
+.italic {
+  font-style: italic;
+  padding: 10px 2px;
+}
+.values-wraper {
+  margin: 90px auto;
+}
+.drives {
+  width: 130px;
+  border: 1px solid #dfbaba;
+  background-color: #f8e7e7;
+}
+.nnon {
+  padding: 10px 15px 15px !important;
+}
+.core {
+  border: none;
+}
+.core:hover {
+  border: none;
+  box-shadow: none;
+  transform: none;
+}
+.core-bold {
+  font-size: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.marginerow {
+  margin: 20px;
+}
+.marginerow div {
+  background-color: #fffafa;
+}
+.ready-wraper {
+  margin: 50px auto;
+}
+.last-ab {
+  margin-bottom: 40px;
+}
+.laste {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.glaste {
+  font-size: 18px;
+}
+.ab-foot {
+  padding: 30px;
+  border: none;
+  box-shadow: 1px 2px 10px #f1f1f1;
+}
+.ab-foot:hover {
+  box-shadow: 1px 5px 10px #d4d4d4;
+  border: none;
+}
+.lastItem {
+  margin-top: 50px;
+}
+@media (min-width: 768px) {
+  .esti-mokr {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .test-fam {
+    font-size: 70px;
+  }
+  .sebsabi {
+    justify-content: space-between;
+  }
+}
+@media (min-width: 992px) {
+  .text-onPhoto {
+    padding-top: 30rem;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    border-radius: 15px 0px 0px 15px;
+  }
+  .photo-part {
+    padding-right: 0px;
+  }
+
+  .test-fam {
+    font-size: 90px;
+  }
+}

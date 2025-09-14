@@ -1,0 +1,85 @@
+.footer {
+  border-top: 1px solid #c2c2c2;
+  background-color: #fcfbe4;
+  padding: 50px 20px 30px;
+}
+.toDimFoot {
+  background-color: #242121 !important;
+  color: #fff;
+  .socialMedia div {
+    background-color: #444444;
+  }
+  .socialMedia div:hover {
+    background-color: var(--primary-color);
+  }
+}
+.socialMedia div:hover {
+  background-color: #bdbdbd;
+  cursor: pointer;
+}
+.forRed:hover {
+  color: var(--primary-color);
+  cursor: pointer;
+}
+.mrChicken {
+  margin-bottom: 20px;
+}
+.mrChickenText {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+}
+.footerItemWraper {
+  margin-bottom: 20px;
+}
+.chickred {
+  margin-left: 5px;
+  color: var(--primary-color);
+}
+.grey {
+  color: var(--secondary-color);
+  font-weight: 500;
+}
+.socialMedia {
+  display: flex;
+}
+.socialMedia div {
+  margin-right: 15px;
+  background-color: var(--bg-color);
+  padding: 2px 7px 5px;
+  border-radius: 50%;
+}
+
+.contact-text {
+  font-weight: 700;
+  font-size: 18px;
+}
+.contacts div {
+  display: flex;
+}
+.con-foot {
+  margin-left: 10px;
+  display: flex;
+  align-items: start;
+}
+.icon-foot {
+  color: var(--primary-color);
+  display: flex;
+  align-items: end;
+}
+.hours div {
+  display: flex;
+  justify-content: space-between;
+}
+.copyRight {
+  border-top: 1px solid #c2c2c2;
+  text-align: center;
+  padding-top: 25px;
+}
+.copyRight p {
+  display: inline-block;
+}
+.two {
+  margin: auto 5px;
+  font-weight: 600;
+}

@@ -1,0 +1,259 @@
+.contact-page {
+  padding-top: 150px;
+  padding-bottom: 60px;
+  background-color: hsla(0, 29%, 97%, 0.664);
+}
+.toDimContact {
+  background-color: #3a3a3a;
+  color: #fff;
+  .nameSend {
+    box-shadow: 1px 2px 15px #424141;
+    background: #2e2e2e;
+  }
+  input,
+  textarea {
+    background-color: #424141;
+    color: #fff;
+  }
+  .wayer {
+    background-color: #424141;
+  }
+  .wayer:hover {
+    box-shadow: 1px 7px 10px #535353;
+  }
+  .place-wraper {
+    border: 1px solid #fff;
+    box-shadow: 1px 1px 15px #575757;
+    background-color: #3a3a3a;
+  }
+  .still {
+    box-shadow: 1px 2px 15px #363636;
+  }
+  .doYouer {
+    background-color: #464646;
+  }
+  .doYouer:hover {
+    box-shadow: 1px 10px 7px #2c2b2b;
+  }
+  .for-contact,
+  .cotact-info {
+    background-color: #3d3d3d;
+    border-color: #ffc7c7;
+  }
+}
+.contact-page p {
+  margin-bottom: 0px;
+}
+.lets {
+  padding-bottom: 150px;
+}
+.for-contact {
+  width: 200px;
+  border-radius: 15px;
+  font-weight: 500;
+  background-color: #ffe8e8;
+  border-color: #f3c5c5;
+}
+.taste-for-contact {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+.difference {
+  font-size: 20px;
+  padding-bottom: 30px;
+}
+.pre-exp,
+.pre-find {
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+.pre-find:hover {
+  background-color: #dad5d5;
+}
+
+@media (min-width: 640px) {
+  .lets {
+    width: 550px;
+    margin: 0px auto;
+  }
+  .taste-for-contact {
+    font-size: 60px;
+  }
+  .taste-for-contact,
+  .pre-flex-div {
+    margin: 0px auto;
+    width: 450px;
+  }
+  .pre-flex-div {
+    display: flex;
+  }
+  .pre-find {
+    width: 250px;
+  }
+}
+.pre-find {
+  background-color: #fff;
+}
+.pre-exp:hover {
+  background-color: #f87a40;
+  .toHover {
+    margin-left: 10px !important;
+  }
+}
+.nameSend {
+  margin: 20px 10px;
+  background-color: #fffdfd;
+  padding: 15px 25px;
+  border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 2px 15px #eee8e8;
+}
+.nameSend label {
+  font-weight: 500;
+  margin-top: 10px;
+}
+.ico-con {
+  color: var(--primary-color);
+}
+
+.nameSend input,
+textarea,
+button {
+  border-radius: 10px;
+  border: 1px solid #eeeded;
+  width: 100%;
+  height: 40px;
+  padding-left: 15px;
+}
+.nameSend textarea {
+  height: 150px;
+}
+.nameSend button {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background-color: var(--primary-color);
+  color: #fffdfd;
+  font-weight: 500;
+  padding: 15px auto;
+  width: fit-content;
+  margin-left: 50px;
+}
+
+.links {
+  color: var(--primary-color);
+}
+.doYouer {
+  font-weight: 500;
+  margin: 5px 30px;
+  padding: 10px 15px 0px;
+  background-color: #fff;
+  border-radius: 20px;
+}
+.doYou {
+  display: flex;
+  justify-content: space-between;
+}
+.formar {
+  padding-bottom: 10px;
+  padding-left: 40px;
+}
+.doYouer:hover {
+  box-shadow: 1px 10px 7px #e2e2e2;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+.get {
+  padding-top: 70px;
+}
+.cotact-info {
+  background-color: #ffe9e9;
+  border: 1px solid #eccccc;
+  border-radius: 20px;
+  width: fit-content;
+  font-weight: 500;
+}
+.nonn {
+  padding: 10px 15px !important;
+}
+.callUss {
+  margin: 20px auto;
+}
+.callUs {
+  text-align: center;
+}
+.redf {
+  font-size: 25px;
+  color: var(--primary-color);
+}
+.wayer {
+  padding-top: 30px;
+  border-color: #e6e0e0;
+  text-align: center;
+  height: 300px;
+  min-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+.wayer:hover {
+  border-color: #e6e0e0;
+  box-shadow: 1px 7px 10px #e6e1e1;
+  .ech {
+    background-color: #e2341d;
+    color: #fff;
+  }
+}
+.uni-gain {
+  color: var(--primary-color);
+}
+.ykrta {
+  margin: 15px auto !important;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.findUs {
+  margin-top: 100px;
+}
+.findUs {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.adress {
+  margin-top: 10px;
+}
+.almaost {
+  background-color: inherit;
+  border: none;
+  height: auto;
+}
+.almaost:hover {
+  border: none;
+  box-shadow: none;
+}
+.bado {
+  background-color: inherit !important;
+}
+.greys {
+  color: var(--secondary-color);
+}
+.supportCenter {
+  margin-top: 100px;
+}
+.still {
+  border: 1px solid #dfdcdc;
+  border-radius: 10px;
+  margin: 40px auto 60px;
+  padding: 20px;
+  box-shadow: 1px 2px 15px #eee2e2;
+  max-width: 800px;
+}
+.stillNeed {
+  border: none;
+  padding: 10px;
+}
+.adress {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}

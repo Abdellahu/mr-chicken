@@ -1,0 +1,260 @@
+.header {
+  background-color: #fffffff8;
+  box-shadow: 0.5px 0.5px 5px #707070;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.dimHead {
+  box-shadow: 0.5px 0.5px 5px #000000;
+  background-color: #303030 !important;
+  color: #fff !important;
+  .header a {
+    color: #fff !important;
+  }
+  .mr-chick-text {
+    color: var(--primary-color) !important;
+  }
+  .home {
+    color: #fff;
+  }
+  .light-mode:hover,
+  .shown-toggler:hover {
+    background-color: #5f5f5f;
+  }
+  .lightAtLast {
+    color: black;
+  }
+  .shown-toggler {
+    color: #fff !important;
+  }
+  .orderTop {
+    color: #ffffff;
+  }
+  .dishOrd {
+    color: #ffffff;
+  }
+}
+.logo-text {
+  display: flex;
+  align-items: end;
+}
+
+.mr-chick-text {
+  font-weight: bolder;
+  text-align: start;
+}
+.logo-text p {
+  margin-bottom: 0px !important;
+}
+a {
+  text-decoration: none !important;
+}
+.orderTop {
+  color: #000000;
+}
+.header a {
+  border: none;
+  margin-left: 5px;
+  border-radius: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.header-lists a {
+  color: black;
+}
+.header-lists-wraper a:hover {
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #fcfbc6;
+}
+.ordre a:hover {
+  background-color: inherit !important;
+}
+
+.header-wraper {
+  justify-content: space-between;
+}
+.header-wraper,
+.header-lists-wraper,
+.logo-wraper {
+  display: flex;
+  align-items: center;
+}
+
+.mr-chick-text {
+  color: black;
+}
+.logo-image {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+.logo-text-aditional,
+.header-lists {
+  display: none;
+}
+.header-lists-wraper {
+  display: flex;
+  align-items: center;
+}
+
+.shown-toggler {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  margin-left: 20px;
+  border-radius: 50%;
+  padding: 7px;
+}
+.light-mode {
+  border-radius: 50%;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+}
+.light-mode:hover,
+.shown-toggler:hover {
+  cursor: pointer;
+  background-color: #fcfbc6;
+}
+.mode-list {
+  border: 0.3px solid #d8d7d7;
+  box-shadow: -1px 3px 10px #bebcbc;
+  border-radius: 10px;
+  position: fixed;
+  top: 100px;
+  left: 100px;
+  padding: 10px;
+}
+.mode-list-wraper div {
+  padding: 3px 10px;
+  border-radius: 10px 10px 0px 0px;
+}
+.mode-list-wraper div:hover {
+  background-color: #fcfbc6;
+  border-bottom: 1px solid #f1b05b;
+}
+
+.ordre {
+  position: relative;
+  margin-left: 10px;
+}
+.dishOrd {
+  color: #000000;
+}
+.orde {
+  position: absolute;
+  left: calc(20px + 8px);
+  top: -1px;
+  width: 15px;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #dd1414;
+  color: #fff;
+  font-weight: 700;
+  font-size: 10px;
+}
+.dish {
+  color: #000000;
+}
+.red {
+  color: #ee2424;
+}
+@media (min-width: 768px) {
+  .logo-text {
+    display: block;
+    align-items: self-start;
+  }
+  .dish {
+    size: 18px;
+  }
+  .header-lists {
+    display: flex;
+    margin-right: 10px;
+  }
+  .logo-text-aditional {
+    display: flex;
+    color: rgb(105, 105, 105);
+    font-size: 13px;
+  }
+  .shown-toggler {
+    display: none;
+  }
+  .logo-image {
+    margin-right: 10px;
+    display: flex;
+    align-items: end;
+  }
+  .header-lists a {
+    display: flex;
+    align-items: center;
+  }
+}
+
+a.redbg {
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #fcfbc6;
+  color: black;
+}
+
+.toggled-section {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  background-color: #f0f0f0;
+  width: 340px;
+  height: 100%;
+  padding: 15px;
+  transition: right 0.5s ease-in-out;
+  a {
+    background-color: #f0f0f0;
+  }
+}
+.toggled-section.visible {
+  right: 0;
+}
+.logo-toggled {
+  padding: 5px 10px 15px;
+  border-bottom: 0.3px solid #dbdbdb;
+}
+.cancel-toggle-icon {
+  float: right;
+}
+.toggle-listes-hopuped-wraper {
+  padding: 30px;
+}
+.toggle-listes-hopuped-wraper a {
+  width: 100%;
+  display: flex;
+  align-content: flex-start;
+  margin-bottom: 10px;
+  padding: 10px;
+  color: #686868;
+  font-weight: bold;
+}
+.iconses {
+  margin-right: 10px;
+  display: flex;
+  align-items: end;
+}
+.toggle-footer {
+  position: fixed;
+  bottom: 0;
+  margin-bottom: 20px;
+  width: 300px;
+}
+.footer-toogle-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.last-logo:hover,
+.last:hover {
+  background-color: #f0f0f0 !important;
+}
