@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import './Contact.css'
-import './../Home/UseHopUp.css'
-import{ Link, useNavigate} from 'react-router'
+import{ Link } from 'react-router'
 import { ArrowRight, CaretDown, CaretUp, Chat, Clock, Dot, File, Headphones, Map, People, Phone, QuestionCircle, Send } from 'react-bootstrap-icons'
 import { useTheme } from "./../Header/Brightness";
 import MapComponent from '../Home/MapComponent'

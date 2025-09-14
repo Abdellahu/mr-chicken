@@ -7,7 +7,6 @@ import About from "./Components/About/About";
 import Contact from './Components/Contact/Contact';
 import { Brightness } from './Components/Header/Brightness';
 import SharedLayout from './Components/SharedLayout';
-import DishDataProvider from './Components/Menu/DishDataProvider';
 
 function App({ }) {
   

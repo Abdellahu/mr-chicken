@@ -1,14 +1,6 @@
-import React from "react";
-import { HandThumbsUpFill, CaretLeft, CaretRight } from "react-bootstrap-icons";
-import { useMyContext } from "./DishDataProvider";
+import { HandThumbsUpFill } from "react-bootstrap-icons";
 
 function OneDish({ passer }) {
-  // const { setIdCollection } = useMyContext();
-  // const handelCollection = (userId) => {
-  //   setIdCollection((prevOrder) => {
-  //     return [...prevOrder, userId];
-  //   });
-  // };
   return (
     <div className="dishesMenu container row">
       {passer.map((dish) => (
